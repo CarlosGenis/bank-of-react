@@ -20,6 +20,7 @@ const Credits = (props) => {
              <input type="number" name="amount" />
              <button type="submit">Add Credit</button>
            </form>
+					 <h1>Account Balance:</h1>
     	</div>
 
     )
