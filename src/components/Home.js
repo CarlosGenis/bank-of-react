@@ -14,12 +14,12 @@ class Home extends Component {
 
         <body>
           <a>
-            <Link to="/userProfile">
+            <Link to="/UserProfile">
               <button type="button">User Profile</button>
             </Link>
           </a>
           <a>
-            <Link to="/userProfile">
+            <Link to="/LogIn">
               <button type="button">Log In</button>
             </Link>
           </a>
