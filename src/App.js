@@ -22,7 +22,9 @@ class App extends Component {
         memberSince: '07/23/96',
       },
       debits: [],
-      credits: []
+      credits: [],
+      //variable for id
+      numOnList: 0
     }
   }
 
@@ -42,7 +44,7 @@ class App extends Component {
       creditSum += credit.amount
     })
 
-    let accountBalance = creditSum - debitSum;
+    let accountBalance = creditSum - debitSum ;
     this.setState({debits, credits, accountBalance});
   }
 
@@ -50,9 +52,17 @@ class App extends Component {
     //send to debits view via props
     //updates state based off user input
     e.preventDefault();
-    const description  = e.target[0].value;
-    const amount  = Number(e.target[1].value);
-    console.log(description, amount);
+    var today = new Date();
+    const UpdatedDebit = {
+      description: e.target.description.value,
+      amount: e.target.amount.value,
+      position: this.state.numOnList,
+      date: String(today.getFullYear()) + '-' + String(today.getMonth()) + '-' + String(today.getDay())
+    }
+    this.setState(prevState => ({
+      debits: [...prevState.debits, UpdatedDebit],
+      accountBalance: [this.state.accountBalance - UpdatedDebit.amount],
+    }))
   }
 
   addCredit = (e) => {
@@ -73,7 +83,7 @@ class App extends Component {
     const { credits } = this.state;
     const CreditsComponent = () => (<Credits addCredit={this.addCredit} credits={credits} />);
     const { debits } = this.state;
-    const DebitsComponent = () => (<Debits addDebit={this.addDebit} debits={debits} />);
+    const DebitsComponent = () => (<Debits addDebit={this.addDebit} debits={debits} accountBalance={this.state.accountBalance}/>);
     const HomePage = () => (
       <div>
         <h1>Welcome</h1>
