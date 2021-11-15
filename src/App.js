@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import LogIn from './components/LogIn';
+import Credits from './components/Credits'
 import Debits from './components/Debits';
 
 import axios from "axios";
@@ -21,7 +22,9 @@ class App extends Component {
         memberSince: '07/23/96',
       },
       debits: [],
-      credits: []
+      credits: [],
+      //variable for id
+      numOnList: 0
     }
   }
 
@@ -41,7 +44,7 @@ class App extends Component {
       creditSum += credit.amount
     })
 
-    let accountBalance = creditSum - debitSum;
+    let accountBalance = Math.round((creditSum - debitSum) * 100 / 100).toFixed(2);//rounded balance on home page
     this.setState({debits, credits, accountBalance});
   }
 
@@ -49,9 +52,34 @@ class App extends Component {
     //send to debits view via props
     //updates state based off user input
     e.preventDefault();
-    const description  = e.target[0].value;
-    const amount  = Number(e.target[1].value);
-    console.log(description, amount);
+    let today = new Date().toISOString().slice(0, 10)
+    const UpdatedDebit = {
+      description: e.target.description.value,
+      amount: e.target.amount.value,
+      position: this.state.numOnList,
+      date: String(today)
+    }
+    this.setState(prevState => ({
+      debits: [...prevState.debits, UpdatedDebit],
+      accountBalance: [Math.round(this.state.accountBalance - UpdatedDebit.amount).toFixed(2)]
+    }))
+  }
+
+  addCredit = (e) => {
+    //send to credits view via props
+    //updates state based off user input
+    e.preventDefault();
+    let today = new Date().toISOString().slice(0,10)
+    const UpdatedCredit = {
+      description: e.target.description.value,
+      amount: e.target.amount.value,
+      position:this.state.numOnList,
+      date: String(today)
+    }
+    this.setState(nextState => ({
+      credits: [...nextState.credits, UpdatedCredit],
+      accountBalance: [Math.round(this.state.accountBalance + UpdatedCredit.amount)]
+    }))
   }
 
   render() {
@@ -60,12 +88,15 @@ class App extends Component {
         <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);
+    const { credits } = this.state;
+    const CreditsComponent = () => (<Credits addCredit={this.addCredit} credits={credits} accountBalance={this.state.accountBalance} />);
     const { debits } = this.state;
-    const DebitsComponent = () => (<Debits addDebit={this.addDebit} debits={debits} />);
+    const DebitsComponent = () => (<Debits addDebit={this.addDebit} debits={debits} accountBalance={this.state.accountBalance}/>);
     const HomePage = () => (
       <div>
         <h1>Welcome</h1>
         <Link to="/Debits">Debits</Link>
+        <Link to="/Credits">Credits</Link>
       </div>
     );
     return (
@@ -74,8 +105,8 @@ class App extends Component {
             <Route exact path="/" render={HomeComponent}/>
             <Route exact path="/userProfile" render={UserProfileComponent}/>
             <Route exact path="/LogIn" render={LogInComponent}/>
+            <Route exact path="/Credits" render={CreditsComponent}/>
             <Route exact path="/Debits" render={DebitsComponent}/>
-
           </switch>
         </Router>
     );
