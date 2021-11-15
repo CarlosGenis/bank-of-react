@@ -61,17 +61,25 @@ class App extends Component {
     }
     this.setState(prevState => ({
       debits: [...prevState.debits, UpdatedDebit],
-      accountBalance: [Math.round(this.state.accountBalance - UpdatedDebit.amount)]
+      accountBalance: [Math.round(this.state.accountBalance - UpdatedDebit.amount).toFixed(2)]
     }))
   }
 
   addCredit = (e) => {
-    //send to debits view via props
+    //send to credits view via props
     //updates state based off user input
     e.preventDefault();
-    const description  = e.target[0].value;
-    const amount  = Number(e.target[1].value);
-    console.log(description, amount);
+    let today = new Date().toISOString().slice(0,10)
+    const UpdatedCredit = {
+      description: e.target.description.value,
+      amount: e.target.amount.value,
+      position:this.state.numOnList,
+      date: String(today)
+    }
+    this.setState(nextState => ({
+      credits: [...nextState.credits, UpdatedCredit],
+      accountBalance: [Math.round(this.state.accountBalance + UpdatedCredit.amount)]
+    }))
   }
 
   render() {
@@ -81,7 +89,7 @@ class App extends Component {
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);
     const { credits } = this.state;
-    const CreditsComponent = () => (<Credits addCredit={this.addCredit} credits={credits} />);
+    const CreditsComponent = () => (<Credits addCredit={this.addCredit} credits={credits} accountBalance={this.state.accountBalance} />);
     const { debits } = this.state;
     const DebitsComponent = () => (<Debits addDebit={this.addDebit} debits={debits} accountBalance={this.state.accountBalance}/>);
     const HomePage = () => (
