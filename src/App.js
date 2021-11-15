@@ -76,9 +76,9 @@ class App extends Component {
       position:this.state.numOnList,
       date: String(today)
     }
-    this.setState(nextState => ({
-      credits: [...nextState.credits, UpdatedCredit],
-      accountBalance: [Math.round(this.state.accountBalance + UpdatedCredit.amount)]
+    this.setState(prevState => ({
+      credits: [...prevState.credits, UpdatedCredit],
+      accountBalance: [Math.round(this.state.accountBalance - (-UpdatedCredit.amount))]
     }))
   }
 
