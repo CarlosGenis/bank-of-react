@@ -52,12 +52,12 @@ class App extends Component {
     //send to debits view via props
     //updates state based off user input
     e.preventDefault();
-    var today = new Date();
+    let today = new Date().toISOString().slice(0, 10)
     const UpdatedDebit = {
       description: e.target.description.value,
       amount: e.target.amount.value,
       position: this.state.numOnList,
-      date: String(today.getFullYear()) + '-' + String(today.getMonth()) + '-' + String(today.getDay())
+      date: String(today)
     }
     this.setState(prevState => ({
       debits: [...prevState.debits, UpdatedDebit],
