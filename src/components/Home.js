@@ -3,6 +3,7 @@
 import React, {Component} from 'react';
 import AccountBalance from './AccountBalance';
 import {Link} from 'react-router-dom';
+import './Home.css';
 
 class Home extends Component {
   render() {
@@ -13,16 +14,24 @@ class Home extends Component {
 
         <body>
           <a>
-            <Link to="/userProfile">User Profile &nbsp;&nbsp;</Link>
+            <Link to="/userProfile">
+              <button type="button">User Profile</button>
+            </Link>
           </a>
           <a>
-            <Link to="/LogIn">Log in &nbsp;&nbsp;</Link>
+            <Link to="/userProfile">
+              <button type="button">Log In</button>
+            </Link>
           </a>
           <a>
-            <Link to="/Credits">Credits &nbsp;&nbsp;</Link>
+            <Link to="/Credits">
+              <button type= "button">Credits</button>
+            </Link>
           </a>
           <a>
-            <Link to="/Debits">Debits &nbsp;&nbsp;</Link>
+            <Link to="/Debits">
+              <button type= "button">Debits</button>
+            </Link>
           </a>
         </body>
           <h2>Account Balance</h2>
