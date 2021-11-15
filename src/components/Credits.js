@@ -3,6 +3,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import AccountBalance from './AccountBalance'
+import './Credits.css';
 
 const Credits = (props) => {
 	let creditsView = () => {
@@ -23,6 +24,33 @@ const Credits = (props) => {
            </form>
 					 <h1>Account Balance:</h1>
            <AccountBalance accountBalance={props.accountBalance}/>
+           <body>
+          <a>
+            <Link to="/UserProfile">
+              <button type="button">User Profile</button>
+            </Link>
+          </a>
+          <a>
+            <Link to="/LogIn">
+              <button type="button">Log In</button>
+            </Link>
+          </a>
+          <a>
+            <Link to="/Credits">
+              <button type= "button">Credits</button>
+            </Link>
+          </a>
+          <a>
+            <Link to="/Debits">
+              <button type= "button">Debits</button>
+            </Link>
+          </a>
+          <a>
+            <Link to="/">
+              <button type= "button">Return to Home</button>
+            </Link>
+          </a>
+        </body>
     	</div>
 
     )
