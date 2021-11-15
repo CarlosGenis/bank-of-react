@@ -44,7 +44,7 @@ class App extends Component {
       creditSum += credit.amount
     })
 
-    let accountBalance = creditSum - debitSum ;
+    let accountBalance = Math.round((creditSum - debitSum) * 100 / 100).toFixed(2);//rounded balance on home page
     this.setState({debits, credits, accountBalance});
   }
 
@@ -61,7 +61,7 @@ class App extends Component {
     }
     this.setState(prevState => ({
       debits: [...prevState.debits, UpdatedDebit],
-      accountBalance: [this.state.accountBalance - UpdatedDebit.amount],
+      accountBalance: [Math.round(this.state.accountBalance - UpdatedDebit.amount)]
     }))
   }
 
