@@ -45,6 +45,11 @@ const Debits = (props) => {
               <button type= "button">Debits</button>
             </Link>
           </a>
+          <a>
+            <Link to="/">
+              <button type= "button">Return to Home</button>
+            </Link>
+          </a>
         </body>
     </div>
     );
