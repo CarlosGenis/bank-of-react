@@ -1,8 +1,10 @@
 #Assignment 4 Web-Dev
+
 Team Members\
 Kevin Fernandez, Github:KevinFernandez16 \
 Carlos Genis, Github: CarlosGenis \
 Bill Leung, Github: bl5903\
+Rachel Ishak, Github: rachel455
 
 Link to Bank Website: 
 
