@@ -2,6 +2,8 @@
 
 import React, {Component} from 'react';
 import AccountBalance from './AccountBalance';
+import Credits from './Credits'
+import Debits from './Debits';
 import {Link} from 'react-router-dom';
 import './UserProfile.css';
 

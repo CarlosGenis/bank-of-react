@@ -18,8 +18,8 @@ class App extends Component {
     this.state = {
       accountBalance: 0,
       currentUser: {
-        userName: 'melissa',
-        memberSince: '07/23/96',
+        userName: 'John Bradshaw Layfield',
+        memberSince: '11/29/66',
       },
       debits: [],
       credits: [],
@@ -44,7 +44,7 @@ class App extends Component {
       creditSum += credit.amount
     })
 
-    let accountBalance = Math.round((creditSum - debitSum) * 100 / 100).toFixed(2);//rounded balance on home page
+    let accountBalance = ((creditSum - debitSum) * 100 / 100).toFixed(2);//rounded balance on home page
     this.setState({debits, credits, accountBalance});
   }
 
@@ -61,7 +61,7 @@ class App extends Component {
     }
     this.setState(prevState => ({
       debits: [...prevState.debits, UpdatedDebit],
-      accountBalance: [Math.round(this.state.accountBalance - UpdatedDebit.amount).toFixed(2)]
+      accountBalance: (this.state.accountBalance - UpdatedDebit.amount).toFixed(2)
     }))
   }
 
@@ -78,16 +78,16 @@ class App extends Component {
     }
     this.setState(prevState => ({
       credits: [...prevState.credits, UpdatedCredit],
-      accountBalance: [Math.round(this.state.accountBalance - (-UpdatedCredit.amount))]
+      accountBalance: (this.state.accountBalance - (-UpdatedCredit.amount)).toFixed(2)
     }))
   }
 
   render() {
     const HomeComponent = () => (<Home accountBalance={this.state.accountBalance}/>);
     const UserProfileComponent = () => (
-        <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
+        <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  accountBalance = {this.state.accountBalance}/>
     );
-    const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);
+    const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn}  accountBalance = {this.state.accountBalance}/>);
     const { credits } = this.state;
     const CreditsComponent = () => (<Credits addCredit={this.addCredit} credits={credits} accountBalance={this.state.accountBalance} />);
     const { debits } = this.state;
